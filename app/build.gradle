@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -13,6 +15,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField("String","WEB_CLIENT_ID",'"216418268871-l5t11rq39mev6c42hlltq4ta9cqqjuss.apps.googleusercontent.com"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -41,4 +48,18 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
+
+    // Navigation Component
+    def nav_version = '2.5.2'
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //Google Sign-In dependency
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+
+    implementation 'com.google.android.gms:play-services-base:18.2.0'
+
+
 }
