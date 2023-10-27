@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.huc_app.BR
+import com.example.huc_app.ui.main.MainActivity
 
 abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
 
@@ -19,6 +20,7 @@ abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
 
     private var _binding: VDB? = null
     val binding: VDB get() = _binding!!
+    protected open var bottomNavigationViewVisibility = View.VISIBLE
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +28,7 @@ abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        setBottomNavigationVisibility()
         binding.run {
             lifecycleOwner = viewLifecycleOwner
             setVariable(BR.viewModel, this@BaseFragment.viewModel)
@@ -38,5 +41,9 @@ abstract class BaseFragment<VDB: ViewDataBinding> : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
+    private fun setBottomNavigationVisibility() {
+        if (activity is MainActivity) {
+            (activity as MainActivity).setBottomNavigationVisibility(bottomNavigationViewVisibility)
+        }
+    }
 }
