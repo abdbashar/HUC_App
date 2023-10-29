@@ -11,7 +11,6 @@ class BaseDiffUtil<T>(
     override fun getOldListSize(): Int {
         return oldList.size
     }
-
     override fun getNewListSize(): Int {
         return newList.size
     }
