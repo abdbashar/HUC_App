@@ -29,12 +29,10 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             viewModel.getGoogleSignInCredentials(result.data)
         }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeEvents()
     }
-
     private fun observeEvents() {
         viewModel.isSignInButtonClicked.observeEvent(viewLifecycleOwner) { condition ->
             if (condition) {
@@ -63,7 +61,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             }
         }
     }
-
     private fun handleSignInButtonClicked() {
         lifecycleScope.launch {
             if (viewModel.checkInternetConnection()) {
@@ -77,7 +74,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             }
         }
     }
-
     private fun initiateGoogleSignIn() {
         lifecycleScope.launch {
             val signInResult = viewModel.beginGoogleOneTapSignIn()
@@ -90,20 +86,17 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
         }
     }
 
-
     private fun showLoadingDialog() {
         childFragmentManager.beginTransaction()
             .add(LoadingDialogFragment(), "loading_dialog")
             .commitAllowingStateLoss()
     }
-
     private fun dismissLoadingDialog() {
         val loadingDialog = childFragmentManager.findFragmentByTag("loading_dialog")
         if (loadingDialog is LoadingDialogFragment) {
             loadingDialog.dismissAllowingStateLoss()
         }
     }
-
 
     private fun showSnackBar(message: String) {
         Snackbar.make(

@@ -1,7 +1,6 @@
 package com.example.huc_app.ui.signIn
 
 import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -117,7 +116,6 @@ class SignInViewModel @Inject constructor(
                 }
                 _signInEvent.postEvent(true)
             } catch (e: Exception) {
-                Log.d("SignInError","from view model / ${e.message}")
                 _signInUiState.update {
                     it.copy(
                         error = e.message.toString(),
