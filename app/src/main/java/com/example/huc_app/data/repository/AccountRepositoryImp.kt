@@ -29,7 +29,6 @@ class AccountRepositoryImp @Inject constructor(
 ) : AccountRepository {
 
     override suspend fun signIn(credential: SignInCredential): AccountDetailsDto {
-        Log.d("google_token", credential.googleIdToken.toString())
         val request = SignInRequest("android", credential.googleIdToken.toString())
         val response = hucApiService.signIn(request)
         if (response.isSuccessful) {
