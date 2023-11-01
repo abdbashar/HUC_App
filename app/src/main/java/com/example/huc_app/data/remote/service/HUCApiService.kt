@@ -6,8 +6,12 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface HUCApiService {
+
     @POST("signin")
     suspend fun signIn(
         @Body request: SignInRequest
     ): Response<AccountDetailsDto>
+
+    @GET("departments/User General info")
+    suspend fun getUserInfo(): UserInfoDTO
 }
