@@ -18,4 +18,7 @@ interface HUCApiService {
     @GET("departments/User Undergraduate info")
     suspend fun getUserUnderGraduatedInfo(): UserUndergradInfoDTO
 
+    @GET("departments/User university info")
+    suspend fun getUserUniversityInfo(): UserUniversityInfoDTO
+
 }
