@@ -1,7 +1,9 @@
 package com.example.huc_app.util
 
 import android.text.*
+import android.view.View
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -57,4 +59,8 @@ fun setDateText(textView: TextView, dateString: String?) {
     }
 }
 
+@BindingAdapter("showIfTrue")
+fun showIfTrue(view: View, condition: Boolean) {
+    view.isVisible = condition
+}
 
