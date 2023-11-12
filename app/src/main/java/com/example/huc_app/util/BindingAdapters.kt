@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.huc_app.R
+import com.example.huc_app.domain.types.Language
 import com.example.huc_app.ui.base.BaseAdapter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -63,4 +64,15 @@ fun setDateText(textView: TextView, dateString: String?) {
 fun showIfTrue(view: View, condition: Boolean) {
     view.isVisible = condition
 }
+
+fun numberConverterByLanguage(text: String): String {
+    val currentLanguage = SettingsService.getCurrentLanguage()
+    val arabicNumbers = if (currentLanguage == Language.ARABIC) {
+        arrayOf("٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩")
+    } else {
+        arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+    }
+    return text.replace(Regex("\\d")) { arabicNumbers[it.value.toInt()] }
+}
+
 
