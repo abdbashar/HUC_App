@@ -14,3 +14,12 @@ inline fun <T> LiveData<Event<T>>.observeEvent(
 ) {
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) }
 }
+
+fun <T> MutableLiveData<T>.asEvent(): MutableLiveData<Event<T>> {
+    val eventLiveData = MutableLiveData<Event<T>>()
+    this.observeForever { event ->
+        eventLiveData.value = Event(event)
+    }
+    return eventLiveData
+}
+
