@@ -19,4 +19,8 @@ abstract class RepositoryModule {
     @Binds
     abstract fun bindUserRepository(userRepositoryImp: UserRepositoryImp): UserRepository
 
+    @ViewModelScoped
+    @Binds
+    abstract fun bindAccountRepository(accountRepositoryImp: AccountRepositoryImp): AccountRepository
+
 }
