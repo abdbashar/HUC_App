@@ -16,4 +16,5 @@ class StudentDocsAdapter(
 
 interface StudentDocsClicksListener : BaseInteractionListener {
     fun onListClick(item: DocumentUIState)
+    fun onOpenDoc(item: DocumentUIState)
 }
