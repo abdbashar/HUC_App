@@ -10,7 +10,10 @@ class StudentDocsAdapter(
     private val listener: StudentDocsClicksListener
 ) : BaseAdapter<DocumentUIState>(list, listener) {
     override val layoutID: Int = R.layout.item_document
+
+
 }
 
 interface StudentDocsClicksListener : BaseInteractionListener {
+    fun onListClick(item: DocumentUIState)
 }
