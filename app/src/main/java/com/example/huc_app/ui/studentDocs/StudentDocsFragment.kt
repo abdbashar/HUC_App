@@ -92,6 +92,19 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
                 R.string.file_saved_to_downloads
             )
         }
+
+        viewModel.studentDocsItemUIState.observeEvent(viewLifecycleOwner) { document ->
+            lifecycleScope.launch {
+                if (viewModel.checkInternetConnection()) {
+                    if (document.documentUrl.contains(".pdf"))
+                        requireContext().openPdfWithExternalApp(document.documentUrl)
+                    else showImage(document.documentUrl)
+
+                } else {
+                    requireContext().showSnackBar(binding.guideline, R.string.error_no_internet)
+                }
+            }
+        }
     }
 }
 
