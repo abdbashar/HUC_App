@@ -105,6 +105,10 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
                 }
             }
         }
+
+        viewModel.isContactClicked.observeEvent(viewLifecycleOwner) {
+            if (it) findNavController().navigate(StudentDocsFragmentDirections.actionStudentDocsFragmentToIssueManagementFragment())
+        }
     }
 }
 
