@@ -96,6 +96,7 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         viewModel.studentDocsItemUIState.observeEvent(viewLifecycleOwner) { document ->
             lifecycleScope.launch {
                 if (viewModel.checkInternetConnection()) {
+
                     if (document.documentUrl.contains(".pdf"))
                         requireContext().openPdfWithExternalApp(document.documentUrl)
                     else showImage(document.documentUrl)
@@ -105,9 +106,17 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
                 }
             }
         }
-
         viewModel.isContactClicked.observeEvent(viewLifecycleOwner) {
             if (it) findNavController().navigate(StudentDocsFragmentDirections.actionStudentDocsFragmentToIssueManagementFragment())
+        }
+
+    }
+
+    private fun showImage(imageUrl: String) {
+        requireContext().loadImageWithAnimation(binding.myImageView, imageUrl)
+        binding.apply {
+            topAppBarLinearLayout.visibility = View.INVISIBLE
+            viewContainer.visibility = View.INVISIBLE
         }
     }
 }
