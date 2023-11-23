@@ -1,7 +1,6 @@
 package com.example.huc_app.ui.studentDocs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils.loadAnimation
 import androidx.activity.addCallback
@@ -33,6 +32,10 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         setAdapter()
         observeUIState()
         observeEvents()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            onBackPressed()
+        }
     }
 
     private fun observeUIState() {
@@ -106,10 +109,10 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
                 }
             }
         }
+
         viewModel.isContactClicked.observeEvent(viewLifecycleOwner) {
             if (it) findNavController().navigate(StudentDocsFragmentDirections.actionStudentDocsFragmentToIssueManagementFragment())
         }
-
     }
 
     private fun showImage(imageUrl: String) {
@@ -117,6 +120,22 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         binding.apply {
             topAppBarLinearLayout.visibility = View.INVISIBLE
             viewContainer.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun onBackPressed() {
+        if (binding.myImageView.visibility == View.VISIBLE) {
+            val reverseAnim = loadAnimation(requireContext(), R.anim.reverse_image_animation)
+            reverseAnim.setAnimationListener {
+                binding.apply {
+                    myImageView.visibility = View.INVISIBLE
+                    topAppBarLinearLayout.visibility = View.VISIBLE
+                    viewContainer.visibility = View.VISIBLE
+                }
+            }
+            binding.myImageView.startAnimation(reverseAnim)
+        } else {
+            findNavController().popBackStack()
         }
     }
 }
