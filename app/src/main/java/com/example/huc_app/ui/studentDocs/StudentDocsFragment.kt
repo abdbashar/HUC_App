@@ -85,6 +85,13 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
                 }
             }
         }
+
+        viewModel.downloadID.observeEvent(viewLifecycleOwner) { downloadId ->
+            (requireActivity() as AppCompatActivity).registerDownloadCompleteReceiver(
+                downloadId,
+                R.string.file_saved_to_downloads
+            )
+        }
     }
 }
 
