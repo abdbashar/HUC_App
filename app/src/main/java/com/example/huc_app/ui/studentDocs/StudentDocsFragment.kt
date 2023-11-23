@@ -54,6 +54,20 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
                 findNavController().popBackStack()
             }
         }
+
+        viewModel.isOpenOptionClicked.observeEvent(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                if (viewModel.checkInternetConnection()) {
+                    if (it.documentUrl.contains(".pdf")) {
+                        requireContext().openPdfWithExternalApp(it.documentUrl)
+                    } else {
+                        showImage(it.documentUrl)
+                    }
+                } else {
+                    requireContext().showSnackBar(binding.root, R.string.error_no_internet)
+                }
+            }
+        }
     }
 }
 
