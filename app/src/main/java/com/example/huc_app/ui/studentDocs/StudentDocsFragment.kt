@@ -32,6 +32,7 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         observeUIState()
+        observeEvents()
     }
 
     private fun observeUIState() {
@@ -47,5 +48,12 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         binding.studentDocs.adapter = studentDocsAdapter
     }
 
+    private fun observeEvents() {
+        viewModel.isArrowBackClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().popBackStack()
+            }
+        }
+    }
 }
 
