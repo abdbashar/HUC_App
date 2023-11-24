@@ -75,14 +75,7 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         viewModel.isDownloadOptionClicked.observeEvent(viewLifecycleOwner) {
             lifecycleScope.launch {
                 if (viewModel.checkInternetConnection()) {
-                    if ((requireActivity() as AppCompatActivity).hasWriteExternalStoragePermission()) {
-                        (requireActivity() as AppCompatActivity).downloadPdfFromUrl(
-                            it.documentUrl,
-                            it.documentName
-                        )
-                    } else {
-                        (requireActivity() as AppCompatActivity).requestWriteExternalStoragePermission()
-                    }
+                    viewModel.downloadDocument(it.documentUrl, it.documentName)
                 } else {
                     requireContext().showSnackBar(binding.root, R.string.error_no_internet)
                 }
@@ -99,7 +92,6 @@ class StudentDocsFragment : BaseFragment<FragmentStudentDocsBinding>() {
         viewModel.studentDocsItemUIState.observeEvent(viewLifecycleOwner) { document ->
             lifecycleScope.launch {
                 if (viewModel.checkInternetConnection()) {
-
                     if (document.documentUrl.contains(".pdf"))
                         requireContext().openPdfWithExternalApp(document.documentUrl)
                     else showImage(document.documentUrl)
