@@ -41,6 +41,10 @@ class StudentDocsViewModel @Inject constructor(
     private val _downloadID = MutableLiveData<Event<Long>>()
     val downloadID: LiveData<Event<Long>> get() = _downloadID
 
+    private val _isArrowBackClicked = MutableLiveData(Event(false))
+    val isArrowBackClicked = _isArrowBackClicked
+
+
     init {
         getStudentDocs()
     }
@@ -48,7 +52,12 @@ class StudentDocsViewModel @Inject constructor(
     private fun getStudentDocs() {
         viewModelScope.launch {
             if (checkConnectivityUseCase()) {
-                _studentDocsUIState.update { it.copy(isLoading = true, isInternetUnAvailable = false) }
+                _studentDocsUIState.update {
+                    it.copy(
+                        isLoading = true,
+                        isInternetUnAvailable = false
+                    )
+                }
                 try {
                     val studentDocuments =
                         studentDocumentsUIMapper.map(getStudentDocumentsUseCase())
@@ -70,7 +79,12 @@ class StudentDocsViewModel @Inject constructor(
                     }
                 }
             } else {
-                _studentDocsUIState.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
+                _studentDocsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        isInternetUnAvailable = true
+                    )
+                }
             }
         }
     }
@@ -80,6 +94,9 @@ class StudentDocsViewModel @Inject constructor(
         _downloadID.postEvent(value)
     }
 
+    fun onNavigateBackClick() {
+        _isArrowBackClicked.postEvent(true)
+    }
 
     fun getData() {
         viewModelScope.launch {
