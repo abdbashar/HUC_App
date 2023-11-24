@@ -33,6 +33,9 @@ class StudentDocsViewModel @Inject constructor(
     private val _isOpenOptionClicked = MutableLiveData<Event<DocumentUIState>>()
     val isOpenOptionClicked: LiveData<Event<DocumentUIState>> get() = _isOpenOptionClicked
 
+    private val _isDownloadOptionClicked = MutableLiveData<Event<DocumentUIState>>()
+    val isDownloadOptionClicked: LiveData<Event<DocumentUIState>> get() = _isDownloadOptionClicked
+
     init {
         getStudentDocs()
     }
@@ -40,7 +43,12 @@ class StudentDocsViewModel @Inject constructor(
     private fun getStudentDocs() {
         viewModelScope.launch {
             if (checkConnectivityUseCase()) {
-                _studentDocsUIState.update { it.copy(isLoading = true, isInternetUnAvailable = false) }
+                _studentDocsUIState.update {
+                    it.copy(
+                        isLoading = true,
+                        isInternetUnAvailable = false
+                    )
+                }
                 try {
                     val studentDocuments =
                         studentDocumentsUIMapper.map(getStudentDocumentsUseCase())
@@ -62,7 +70,12 @@ class StudentDocsViewModel @Inject constructor(
                     }
                 }
             } else {
-                _studentDocsUIState.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
+                _studentDocsUIState.update {
+                    it.copy(
+                        isLoading = false,
+                        isInternetUnAvailable = true
+                    )
+                }
             }
         }
     }
@@ -76,7 +89,7 @@ class StudentDocsViewModel @Inject constructor(
     }
 
     override fun onDownloadDoc(item: DocumentUIState) {
-        TODO("Not implemented yet")
+        _isDownloadOptionClicked.postEvent(item)
     }
 
 }
