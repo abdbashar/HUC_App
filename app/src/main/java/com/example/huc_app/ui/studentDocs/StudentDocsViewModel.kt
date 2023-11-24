@@ -81,6 +81,20 @@ class StudentDocsViewModel @Inject constructor(
     }
 
 
+    fun getData() {
+        viewModelScope.launch {
+            _studentDocsUIState.update {
+                it.copy(
+                    isLoading = false,
+                    isSuccess = false,
+                    isFailure = false,
+                    isInternetUnAvailable = false
+                )
+            }
+        }
+        getStudentDocs()
+    }
+
     override fun onListClick(item: DocumentUIState) {
         _studentDocsItemUIState.postEvent(item)
     }
