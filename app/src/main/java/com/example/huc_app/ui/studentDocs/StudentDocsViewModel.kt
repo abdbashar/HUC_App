@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.huc_app.data.download.DownloadHelper
 import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetStudentDocumentsUseCase
 import com.example.huc_app.ui.studentDocs.studentDocsUIState.GetStudentDocsUIState
@@ -22,6 +23,7 @@ class StudentDocsViewModel @Inject constructor(
     private val getStudentDocumentsUseCase: GetStudentDocumentsUseCase,
     private val studentDocumentsUIMapper: StudentDocumentsUIMapper,
     private val checkConnectivityUseCase: CheckConnectivityUseCase,
+    private val downloadHelper: DownloadHelper
 ) : ViewModel(), StudentDocsClicksListener {
 
     private val _studentDocsUIState = MutableStateFlow(GetStudentDocsUIState())
@@ -36,6 +38,9 @@ class StudentDocsViewModel @Inject constructor(
     private val _isDownloadOptionClicked = MutableLiveData<Event<DocumentUIState>>()
     val isDownloadOptionClicked: LiveData<Event<DocumentUIState>> get() = _isDownloadOptionClicked
 
+    private val _downloadID = MutableLiveData<Event<Long>>()
+    val downloadID: LiveData<Event<Long>> get() = _downloadID
+
     init {
         getStudentDocs()
     }
@@ -43,12 +48,7 @@ class StudentDocsViewModel @Inject constructor(
     private fun getStudentDocs() {
         viewModelScope.launch {
             if (checkConnectivityUseCase()) {
-                _studentDocsUIState.update {
-                    it.copy(
-                        isLoading = true,
-                        isInternetUnAvailable = false
-                    )
-                }
+                _studentDocsUIState.update { it.copy(isLoading = true, isInternetUnAvailable = false) }
                 try {
                     val studentDocuments =
                         studentDocumentsUIMapper.map(getStudentDocumentsUseCase())
@@ -70,15 +70,16 @@ class StudentDocsViewModel @Inject constructor(
                     }
                 }
             } else {
-                _studentDocsUIState.update {
-                    it.copy(
-                        isLoading = false,
-                        isInternetUnAvailable = true
-                    )
-                }
+                _studentDocsUIState.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
             }
         }
     }
+
+    fun downloadDocument(url: String, fileName: String) {
+        val value = downloadHelper.startDownload(url, fileName)
+        _downloadID.postEvent(value)
+    }
+
 
     override fun onListClick(item: DocumentUIState) {
         _studentDocsItemUIState.postEvent(item)
