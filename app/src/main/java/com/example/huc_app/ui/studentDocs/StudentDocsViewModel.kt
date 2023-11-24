@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.huc_app.data.download.DownloadHelper
 import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetStudentDocumentsUseCase
-import com.example.huc_app.ui.studentDocs.studentDocsUIState.GetStudentDocsUIState
 import com.example.huc_app.ui.studentDocs.studentDocsUIState.DocumentUIState
+import com.example.huc_app.ui.studentDocs.studentDocsUIState.GetStudentDocsUIState
 import com.example.huc_app.util.Event
 import com.example.huc_app.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,6 +44,8 @@ class StudentDocsViewModel @Inject constructor(
     private val _isArrowBackClicked = MutableLiveData(Event(false))
     val isArrowBackClicked = _isArrowBackClicked
 
+    private val _isContactClicked = MutableLiveData(Event(false))
+    val isContactClicked = _isContactClicked
 
     init {
         getStudentDocs()
@@ -96,6 +98,10 @@ class StudentDocsViewModel @Inject constructor(
 
     fun onNavigateBackClick() {
         _isArrowBackClicked.postEvent(true)
+    }
+
+    fun onContactClicked() {
+        _isContactClicked.postEvent(true)
     }
 
     fun getData() {
