@@ -30,6 +30,9 @@ class StudentDocsViewModel @Inject constructor(
     private val _studentDocsItemUIState = MutableLiveData<Event<DocumentUIState>>()
     val studentDocsItemUIState: LiveData<Event<DocumentUIState>> get() = _studentDocsItemUIState
 
+    private val _isOpenOptionClicked = MutableLiveData<Event<DocumentUIState>>()
+    val isOpenOptionClicked: LiveData<Event<DocumentUIState>> get() = _isOpenOptionClicked
+
     init {
         getStudentDocs()
     }
@@ -69,7 +72,7 @@ class StudentDocsViewModel @Inject constructor(
     }
 
     override fun onOpenDoc(item: DocumentUIState) {
-        TODO("Not implemented yet")
+        _isOpenOptionClicked.postEvent(item)
     }
 
     override fun onDownloadDoc(item: DocumentUIState) {
