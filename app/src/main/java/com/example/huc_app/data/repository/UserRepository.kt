@@ -1,12 +1,8 @@
 package com.example.huc_app.data.repository
 
-import com.example.huc_app.data.remote.response.UniversityNewsDTO
-import com.example.huc_app.data.remote.response.UserInfoDTO
-import com.example.huc_app.data.remote.response.UserUndergradInfoDTO
-import com.example.huc_app.data.remote.response.UserUniversityInfoDTO
+import com.example.huc_app.data.remote.response.*
 
 interface UserRepository {
-
     suspend fun getUserInfo(): UserInfoDTO
 
     suspend fun getUserUnderGradeInfo(): UserUndergradInfoDTO
@@ -15,4 +11,5 @@ interface UserRepository {
 
     suspend fun getLatestNews(): UniversityNewsDTO
 
+    suspend fun getStudentDocs(): StudentDocumentsDTO
 }
