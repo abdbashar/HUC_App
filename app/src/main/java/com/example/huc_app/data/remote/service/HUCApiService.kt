@@ -24,4 +24,6 @@ interface HUCApiService {
     @GET("HUC Website/latest news")
     suspend fun getLatestNews(): UniversityNewsDTO
 
+    @GET("get_student_documents")
+    suspend fun getStudentDocs(): StudentDocumentsDTO
 }
