@@ -26,5 +26,4 @@ interface HUCApiService {
 
     @GET("get_student_documents")
     suspend fun getStudentDocs(): StudentDocumentsDTO
-
 }
