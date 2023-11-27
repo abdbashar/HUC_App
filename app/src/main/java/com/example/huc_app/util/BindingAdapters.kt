@@ -3,6 +3,7 @@ package com.example.huc_app.util
 import android.text.*
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -64,7 +65,6 @@ fun setDateText(textView: TextView, dateString: String?) {
 fun showIfTrue(view: View, condition: Boolean) {
     view.isVisible = condition
 }
-
 fun numberConverterByLanguage(text: String): String {
     val currentLanguage = SettingsService.getCurrentLanguage()
     val arabicNumbers = if (currentLanguage == Language.ARABIC) {
@@ -75,4 +75,10 @@ fun numberConverterByLanguage(text: String): String {
     return text.replace(Regex("\\d")) { arabicNumbers[it.value.toInt()] }
 }
 
+@BindingAdapter("studentIDValidityDrawable")
+fun setStudentIDValidityDrawable(view: ImageView, isValid: Boolean) {
+    val context = view.context
+    val drawableRes = if (isValid) R.drawable.valid_id_status else R.drawable.invalid_id_status
+    view.setImageDrawable(ContextCompat.getDrawable(context, drawableRes))
+}
 
