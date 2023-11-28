@@ -66,8 +66,8 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="sans-serif-light"
                     android:text="@{viewModel.menuUIState.studentDetails.email}"
-                    android:textColor="@color/black"
                     android:textIsSelectable="true"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_name_person"
@@ -214,6 +214,32 @@
                         android:gravity="center_vertical"
                         android:padding="16dp"
                         android:text="@string/student_documents"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/student_id_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/white"
+                    android:onClick="@{() -> viewModel.onStudentIDClicked()}"
+                    app:cardCornerRadius="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/university_info_card_view">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/user_id"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/student_id"
                         android:textColor="@color/black" />
 
                 </com.google.android.material.card.MaterialCardView>
