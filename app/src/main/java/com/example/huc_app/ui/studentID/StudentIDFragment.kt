@@ -3,10 +3,12 @@ package com.example.huc_app.ui.studentID
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.huc_app.R
 import com.example.huc_app.databinding.FragmentStudentIdBinding
 import com.example.huc_app.domain.types.Language
 import com.example.huc_app.ui.base.BaseFragment
+import com.example.huc_app.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +32,12 @@ class StudentIDFragment : BaseFragment<FragmentStudentIdBinding>() {
                     viewModel.studentIDStatus.value.studentDetails.departmentName
             } else binding.departmentName.text =
                 viewModel.studentIDStatus.value.studentDetails.departmentNameInEnglish
+        }
+
+        viewModel.isArrowBackClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().popBackStack()
+            }
         }
     }
 }
