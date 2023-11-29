@@ -97,4 +97,19 @@ class StudentIDViewModel @Inject constructor(
     fun onNavigateBackClick() {
         _isArrowBackClicked.postValue(Event(true))
     }
+
+    fun getData() {
+        viewModelScope.launch {
+            _studentIDStatus.update {
+                it.copy(
+                    isLoading = false,
+                    isSuccess = false,
+                    isFailure = false,
+                    isInternetUnAvailable = false,
+                )
+            }
+        }
+        getUserProfile()
+        getStudentIDStatus()
+    }
 }
