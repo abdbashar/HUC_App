@@ -11,6 +11,7 @@ import com.example.huc_app.domain.useCases.GetStudentIDStatusUseCase
 import com.example.huc_app.ui.studentID.studentIDStatusMapper.StudentDetailsUIMapper
 import com.example.huc_app.ui.studentID.studentIDStatusMapper.StudentIDStatusUIMapper
 import com.example.huc_app.ui.studentID.studentIDStatusUIState.GetStudentIDStatusUIState
+import com.example.huc_app.util.Event
 import com.example.huc_app.util.SettingsService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,6 +34,9 @@ class StudentIDViewModel @Inject constructor(
 
     private val _currentLanguage = MutableLiveData<Language>()
     val currentLanguage: LiveData<Language> get() = _currentLanguage
+
+    private val _isArrowBackClicked = MutableLiveData(Event(false))
+    val isArrowBackClicked = _isArrowBackClicked
 
     private val settingsService = SettingsService
 
@@ -88,5 +92,9 @@ class StudentIDViewModel @Inject constructor(
                 _studentIDStatus.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
             }
         }
+    }
+
+    fun onNavigateBackClick() {
+        _isArrowBackClicked.postValue(Event(true))
     }
 }
