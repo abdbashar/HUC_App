@@ -3,6 +3,7 @@ package com.example.huc_app.ui.studentID
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.huc_app.domain.types.Language
 import com.example.huc_app.domain.useCases.GetStudentDetailsUseCase
 import com.example.huc_app.ui.studentID.studentIDStatusMapper.StudentDetailsUIMapper
@@ -11,6 +12,8 @@ import com.example.huc_app.util.SettingsService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,9 +32,21 @@ class StudentIDViewModel @Inject constructor(
 
     init {
         getCurrentAppLanguage()
+        getUserProfile()
     }
 
     private fun getCurrentAppLanguage() {
         _currentLanguage.postValue(settingsService.getCurrentLanguage())
+    }
+
+    private fun getUserProfile() {
+        viewModelScope.launch {
+            val userDetails = studentDetailsUIMapper.map(getStudentDetailsUseCase())
+            _studentIDStatus.update {
+                it.copy(
+                    studentDetails = userDetails
+                )
+            }
+        }
     }
 }
