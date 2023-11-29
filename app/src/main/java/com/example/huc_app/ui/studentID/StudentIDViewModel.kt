@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.huc_app.domain.types.Language
+import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetStudentDetailsUseCase
+import com.example.huc_app.domain.useCases.GetStudentIDStatusUseCase
 import com.example.huc_app.ui.studentID.studentIDStatusMapper.StudentDetailsUIMapper
+import com.example.huc_app.ui.studentID.studentIDStatusMapper.StudentIDStatusUIMapper
 import com.example.huc_app.ui.studentID.studentIDStatusUIState.GetStudentIDStatusUIState
 import com.example.huc_app.util.SettingsService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +23,9 @@ import javax.inject.Inject
 class StudentIDViewModel @Inject constructor(
     private val getStudentDetailsUseCase: GetStudentDetailsUseCase,
     private val studentDetailsUIMapper: StudentDetailsUIMapper,
+    private val getStudentIDStatusUseCase: GetStudentIDStatusUseCase,
+    private val studentIDStatusUIMapper: StudentIDStatusUIMapper,
+    private val checkConnectivityUseCase: CheckConnectivityUseCase
 ) : ViewModel() {
 
     private val _studentIDStatus = MutableStateFlow(GetStudentIDStatusUIState())
