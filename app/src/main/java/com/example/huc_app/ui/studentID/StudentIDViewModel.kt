@@ -39,6 +39,7 @@ class StudentIDViewModel @Inject constructor(
     init {
         getCurrentAppLanguage()
         getUserProfile()
+        getStudentIDStatus()
     }
 
     private fun getCurrentAppLanguage() {
@@ -52,6 +53,39 @@ class StudentIDViewModel @Inject constructor(
                 it.copy(
                     studentDetails = userDetails
                 )
+            }
+        }
+    }
+
+    private fun getStudentIDStatus() {
+        viewModelScope.launch {
+            if (checkConnectivityUseCase()) {
+                _studentIDStatus.update { it.copy(isLoading = true, isInternetUnAvailable = false) }
+                try {
+                    val studentIDStatus = studentIDStatusUIMapper.map(getStudentIDStatusUseCase())
+                    _studentIDStatus.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccess = true,
+                            studentIDStatusUIState = it.studentIDStatusUIState.copy(
+                                directEnrolledDate = studentIDStatus.directEnrolledDate,
+                                isDirectlyEnrolled = studentIDStatus.isDirectlyEnrolled,
+                                isStudentIDPrinted = studentIDStatus.isStudentIDPrinted,
+                                studentIDExpirationDate = studentIDStatus.studentIDExpirationDate
+                            )
+                        )
+                    }
+                } catch (e: Exception) {
+                    _studentIDStatus.update {
+                        it.copy(
+                            isLoading = false,
+                            isFailure = true,
+                            error = e.message.toString()
+                        )
+                    }
+                }
+            } else {
+                _studentIDStatus.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
             }
         }
     }
