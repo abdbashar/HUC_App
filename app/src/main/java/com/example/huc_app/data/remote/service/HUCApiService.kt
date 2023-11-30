@@ -6,7 +6,6 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface HUCApiService {
-
     @POST("signin")
     suspend fun signIn(
         @Body request: SignInRequest
@@ -26,4 +25,7 @@ interface HUCApiService {
 
     @GET("get_student_documents")
     suspend fun getStudentDocs(): StudentDocumentsDTO
+
+    @GET("departments/Student id and direct status")
+    suspend fun getStudentIDStatus(): StudentIDStatusDTO
 }
