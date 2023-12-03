@@ -1,8 +1,17 @@
 package com.example.huc_app.util
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.Paint
+import android.os.Build
 import android.text.*
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StrikethroughSpan
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -10,7 +19,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.huc_app.R
 import com.example.huc_app.domain.types.Language
+import com.example.huc_app.domain.types.PaymentStatus
 import com.example.huc_app.ui.base.BaseAdapter
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.CornerFamily
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -65,6 +79,11 @@ fun setDateText(textView: TextView, dateString: String?) {
 fun showIfTrue(view: View, condition: Boolean) {
     view.isVisible = condition
 }
+
+@BindingAdapter("scaleImageByLanguage")
+fun scaleImageByLanguage(view: View, language: Language?) {
+    view.scaleX = if (language == Language.ARABIC) -1f else 1f
+}
 fun numberConverterByLanguage(text: String): String {
     val currentLanguage = SettingsService.getCurrentLanguage()
     val arabicNumbers = if (currentLanguage == Language.ARABIC) {
@@ -79,6 +98,6 @@ fun numberConverterByLanguage(text: String): String {
 fun setStudentIDValidityDrawable(view: ImageView, isValid: Boolean) {
     val context = view.context
     val drawableRes = if (isValid) R.drawable.valid_id_status else R.drawable.invalid_id_status
+
     view.setImageDrawable(ContextCompat.getDrawable(context, drawableRes))
 }
-
