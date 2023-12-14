@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.huc_app.ui.menu.MenuViewModel" />
@@ -240,6 +239,31 @@
                         android:gravity="center_vertical"
                         android:padding="16dp"
                         android:text="@string/student_id"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/student_requests"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/white"
+                    android:onClick="@{() -> viewModel.onSubmitRequestsClicked()}"
+                    app:cardCornerRadius="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/account_section">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/document_add"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/submit_requests"
                         android:textColor="@color/black" />
 
                 </com.google.android.material.card.MaterialCardView>

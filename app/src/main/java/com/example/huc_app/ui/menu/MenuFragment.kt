@@ -29,6 +29,9 @@ class MenuFragment : BaseFragment<FragmentMenuBindingImpl>() {
                 MenuEvent.SecondarySchoolInfoClicked -> navigateToScreenById(R.id.action_menuFragment_to_secondarySchoolInfoFragment)
                 MenuEvent.UniversityInfoClicked -> navigateToScreenById(R.id.action_menuFragment_to_universityInfoFragment)
                 MenuEvent.StudentDocsClicked -> navigateToScreenById(R.id.action_menuFragment_to_studentDocsFragment)
+                MenuEvent.StudentIDClicked -> navigateToScreenById(R.id.action_menuFragment_to_studentIDFragment)
+                MenuEvent.SubmitRequestsClicked -> navigateToScreenById(R.id.action_menuFragment_to_requestsFragment)
+                else -> {}
             }
         }
     }
