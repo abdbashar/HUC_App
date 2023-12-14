@@ -82,4 +82,8 @@ class MenuViewModel @Inject constructor(
     fun onStudentIDClicked() {
         _menuEvent.value = MenuEvent.StudentIDClicked.toEvent()
     }
+
+    fun onSubmitRequestsClicked() {
+        _menuEvent.value = MenuEvent.SubmitRequestsClicked.toEvent()
+    }
 }
