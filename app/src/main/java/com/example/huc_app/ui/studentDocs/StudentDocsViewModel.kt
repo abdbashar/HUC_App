@@ -51,6 +51,8 @@ class StudentDocsViewModel @Inject constructor(
         getStudentDocs()
     }
 
+    suspend fun checkInternetConnection(): Boolean = checkConnectivityUseCase()
+
     private fun getStudentDocs() {
         viewModelScope.launch {
             if (checkConnectivityUseCase()) {
