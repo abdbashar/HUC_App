@@ -41,6 +41,11 @@ class RequestsFragment : BaseFragment<FragmentRequestsBinding>() {
                 findNavController().navigate(R.id.action_requestsFragment_to_writeRequestFragment)
             }
         }
+        viewModel.requestUIState.observeEvent(viewLifecycleOwner) {
+            val action =
+                RequestsFragmentDirections.actionRequestsFragmentToRequestDetailsFragment(it.id)
+            findNavController().navigate(action)
+        }
     }
 
     private fun observeUIState() {
