@@ -25,9 +25,20 @@ class RequestsFragment : BaseFragment<FragmentRequestsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeBackStackArg()
         setAdapter()
         observeUIState()
         observeEvents()
+    }
+
+    private fun observeBackStackArg() {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("isRequestCreated")
+            ?.observe(viewLifecycleOwner) { isRequestCreated ->
+                if (isRequestCreated) {
+                    findNavController().currentBackStackEntry?.savedStateHandle?.remove<Boolean>("isRequestCreated")
+                    viewModel.getRequests()
+                }
+            }
     }
 
     private fun observeEvents() {
