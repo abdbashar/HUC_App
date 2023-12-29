@@ -36,6 +36,11 @@ class RequestsFragment : BaseFragment<FragmentRequestsBinding>() {
                 findNavController().popBackStack()
             }
         }
+        viewModel.isCreateRequestClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(R.id.action_requestsFragment_to_writeRequestFragment)
+            }
+        }
     }
 
     private fun observeUIState() {
