@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.huc_app.R
 import com.example.huc_app.databinding.FragmentRequestsBinding
 import com.example.huc_app.ui.base.BaseFragment
+import com.example.huc_app.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,6 +27,15 @@ class RequestsFragment : BaseFragment<FragmentRequestsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         observeUIState()
+        observeEvents()
+    }
+
+    private fun observeEvents() {
+        viewModel.isArrowBackClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun observeUIState() {
