@@ -1,11 +1,13 @@
 package com.example.huc_app.ui.requests
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetRequestsUseCase
 import com.example.huc_app.ui.requests.requestsUIState.GetRequestsUIState
+import com.example.huc_app.ui.requests.requestsUIState.RequestUIState
 import com.example.huc_app.util.Event
 import com.example.huc_app.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,10 +22,13 @@ class RequestsViewModel @Inject constructor(
     private val getRequestsUseCase: GetRequestsUseCase,
     private val requestUIMapper: RequestUIMapper,
     private val checkConnectivityUseCase: CheckConnectivityUseCase
-) : ViewModel() {
+) : ViewModel(), RequestsClicksListener {
 
     private val _getRequestsUIState = MutableStateFlow(GetRequestsUIState())
     val getRequestsUIState: StateFlow<GetRequestsUIState> get() = _getRequestsUIState
+
+    private val _requestUIState = MutableLiveData<Event<RequestUIState>>()
+    val requestUIState: LiveData<Event<RequestUIState>> get() = _requestUIState
 
     private val _isCreateRequestClicked = MutableLiveData(Event(false))
     val isCreateRequestClicked = _isCreateRequestClicked
@@ -83,5 +88,9 @@ class RequestsViewModel @Inject constructor(
 
     fun onClickCreateRequest() {
         _isCreateRequestClicked.postEvent(true)
+    }
+
+    override fun onListClick(item: RequestUIState) {
+        _requestUIState.postEvent(item)
     }
 }
