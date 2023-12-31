@@ -25,6 +25,9 @@ class RequestsViewModel @Inject constructor(
     private val _getRequestsUIState = MutableStateFlow(GetRequestsUIState())
     val getRequestsUIState: StateFlow<GetRequestsUIState> get() = _getRequestsUIState
 
+    private val _isCreateRequestClicked = MutableLiveData(Event(false))
+    val isCreateRequestClicked = _isCreateRequestClicked
+
     private val _isArrowBackClicked = MutableLiveData(Event(false))
     val isArrowBackClicked = _isArrowBackClicked
 
@@ -62,5 +65,9 @@ class RequestsViewModel @Inject constructor(
 
     fun onNavigateBackClick() {
         _isArrowBackClicked.postEvent(true)
+    }
+
+    fun onClickCreateRequest() {
+        _isCreateRequestClicked.postEvent(true)
     }
 }
