@@ -63,6 +63,20 @@ class RequestsViewModel @Inject constructor(
         }
     }
 
+    fun getData() {
+        viewModelScope.launch {
+            _getRequestsUIState.update {
+                it.copy(
+                    isLoading = false,
+                    isSuccess = false,
+                    isFailure = false,
+                    isInternetUnAvailable = false,
+                )
+            }
+        }
+        getRequests()
+    }
+
     fun onNavigateBackClick() {
         _isArrowBackClicked.postEvent(true)
     }
