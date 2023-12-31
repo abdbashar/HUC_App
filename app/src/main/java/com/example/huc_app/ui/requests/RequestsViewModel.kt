@@ -1,10 +1,13 @@
 package com.example.huc_app.ui.requests
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetRequestsUseCase
 import com.example.huc_app.ui.requests.requestsUIState.GetRequestsUIState
+import com.example.huc_app.util.Event
+import com.example.huc_app.util.postEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +24,9 @@ class RequestsViewModel @Inject constructor(
 
     private val _getRequestsUIState = MutableStateFlow(GetRequestsUIState())
     val getRequestsUIState: StateFlow<GetRequestsUIState> get() = _getRequestsUIState
+
+    private val _isArrowBackClicked = MutableLiveData(Event(false))
+    val isArrowBackClicked = _isArrowBackClicked
 
     init {
         getRequests()
@@ -52,5 +58,9 @@ class RequestsViewModel @Inject constructor(
                 _getRequestsUIState.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
             }
         }
+    }
+
+    fun onNavigateBackClick() {
+        _isArrowBackClicked.postEvent(true)
     }
 }
