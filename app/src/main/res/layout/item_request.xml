@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.huc_app.ui.requests.requestsUIState.RequestUIState" />
+        <variable
+            name="listener"
+            type="com.example.huc_app.ui.requests.RequestsClicksListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_color">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/issue_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="16dp"
+            android:onClick="@{() -> listener.onListClick(item)}"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image_actor"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="@dimen/spacing_medium"
+                        requestType="@{item.requestType}"
+                        android:scaleType="centerInside"
+                        app:shapeAppearanceOverlay="@style/Circle"/>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="8dp"
+                            android:text="@{item.requestType}"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="Graduation certificate" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha=".67"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal"
+                            app:dateText="@{item.date}"
+                            tools:text="5 min ago" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:layout_marginHorizontal="@dimen/spacing_medium"
+                        android:text="@{item.status}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="normal"
+                        tools:text="In progress" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha=".67"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="16dp"
+                    android:text="@{item.addressedTo}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="normal"
+                    tools:text="Al-Karkh Health Department" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
