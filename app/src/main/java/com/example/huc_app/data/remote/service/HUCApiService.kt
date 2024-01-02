@@ -28,4 +28,7 @@ interface HUCApiService {
 
     @GET("departments/Student id and direct status")
     suspend fun getStudentIDStatus(): StudentIDStatusDTO
+
+    @GET("Registration/get_requests")
+    suspend fun getRequests(): RequestsDTO
 }
