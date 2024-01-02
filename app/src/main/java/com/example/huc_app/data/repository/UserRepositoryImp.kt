@@ -24,11 +24,16 @@ class UserRepositoryImp @Inject constructor(
     override suspend fun getLatestNews(): UniversityNewsDTO {
         return hucApiService.getLatestNews()
     }
+
     override suspend fun getStudentDocs(): StudentDocumentsDTO {
         return hucApiService.getStudentDocs()
     }
 
     override suspend fun getStudentIDStatus(): StudentIDStatusDTO {
         return hucApiService.getStudentIDStatus()
+    }
+
+    override suspend fun getRequests(): RequestsDTO {
+        return hucApiService.getRequests()
     }
 }
