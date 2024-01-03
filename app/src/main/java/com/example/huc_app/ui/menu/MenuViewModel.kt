@@ -63,6 +63,7 @@ class MenuViewModel @Inject constructor(
             }
         }
     }
+
     fun onPersonalInfoClicked() {
         _menuEvent.value = MenuEvent.PersonalInfoClicked.toEvent()
     }
@@ -85,5 +86,9 @@ class MenuViewModel @Inject constructor(
 
     fun onSubmitRequestsClicked() {
         _menuEvent.value = MenuEvent.SubmitRequestsClicked.toEvent()
+    }
+
+    fun onBillsClicked() {
+        _menuEvent.value = MenuEvent.BillsClicked.toEvent()
     }
 }
