@@ -9,6 +9,7 @@ sealed class MenuEvent {
     object StudentDocsClicked : MenuEvent()
     object StudentIDClicked : MenuEvent()
     object SubmitRequestsClicked : MenuEvent()
+    object BillsClicked : MenuEvent()
 }
 
 fun MenuEvent.toEvent(): Event<MenuEvent> = Event(this)
