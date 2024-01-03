@@ -271,6 +271,54 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                showIfTrue="@{viewModel.menuUIState.userLoggedIn}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/Financial_section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/financial"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_email"
+                    tools:text="Financial" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bills_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/white"
+                    android:onClick="@{() -> viewModel.onBillsClicked()}"
+                    app:cardCornerRadius="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/university_info_card_view">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/wallet"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/bills"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
