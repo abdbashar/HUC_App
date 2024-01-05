@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.huc_app.ui.bills.BillsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressIndicator"
+            showIfTrue="@{viewModel.studentFeesUIState.loading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/primaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView"
+                    showIfTrue="@{viewModel.studentFeesUIState.success}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    app:cardElevation="0dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:padding="24dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/arrowBackIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/icon_rounded_background"
+                                    android:onClick="@{() -> viewModel.onNavigateBackClick()}"
+                                    android:padding="8dp"
+                                    android:src="@drawable/arrow_back" />
+
+                                <TextView
+                                    android:id="@+id/phraseText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/arrowBackIcon"
+                                    android:layout_marginTop="16dp"
+                                    android:lineHeight="40sp"
+                                    android:text="@string/bills_title"
+                                    android:textColor="#1B202A"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/progressText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="4dp"
+                                android:textColor="#03DAC6"
+                                app:stringResourceName="@{`total_progress_percent`}"
+                                app:value="@{String.valueOf(viewModel.studentFeesUIState.studentFees.totalFeesPaymentProgress)}" />
+
+                            <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:layout_width="match_parent"
+                                android:layout_height="8dp"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progress="@{viewModel.studentFeesUIState.studentFees.totalFeesPaymentProgress}"
+                                app:indicatorColor="@color/primaryColor"
+                                app:trackColor="#E7E7EC"
+                                app:trackCornerRadius="8dp"
+                                app:trackThickness="8dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".5">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="200dp"
+                                    android:src="@drawable/fees_progress_illustrator"
+                                    app:scaleImageByLanguage="@{viewModel.currentLanguage}" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    showIfTrue="@{viewModel.studentFeesUIState.success}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".7"
+                            android:orientation="vertical"
+                            android:paddingVertical="16dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="0dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:alpha=".6"
+                                    android:text="@string/total_fees"
+                                    android:textSize="16sp"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:id="@+id/final_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="32sp"
+                                    android:textStyle="bold"
+                                    app:priceWithCurrency="@{String.valueOf(viewModel.studentFeesUIState.studentFees.feesAfterDiscount)}"
+                                    tools:text="3,000,000 IQD" />
+
+                                <TextView
+                                    android:id="@+id/old_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:alpha=".7"
+                                    android:textSize="18sp"
+                                    android:textStyle="normal"
+                                    app:priceWithCurrencyAndStrikethrough="@{String.valueOf(viewModel.studentFeesUIState.studentFees.feesBeforeDiscount)}"
+                                    tools:text="5,000,000 IQD" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="16dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="4dp"
+                                        android:alpha=".7"
+                                        android:text="@string/total_paid"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        app:priceWithCurrency="@{String.valueOf(viewModel.studentFeesUIState.studentFees.totalPaid)}"
+                                        tools:text="2,500,000" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:gravity="start"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="4dp"
+                                            android:alpha=".7"
+                                            android:text="@string/total_remaining"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="16sp"
+                                            android:textStyle="bold"
+                                            app:priceWithCurrency="@{String.valueOf(viewModel.studentFeesUIState.studentFees.totalRemain)}"
+                                            tools:text="2,500,000" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".3"
+                            android:gravity="end">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:paddingHorizontal="12dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/fess_card_illustrator" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/student_payments"
+                    showIfTrue="@{viewModel.studentFeesUIState.success}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="80dp"
+                    app:items="@{viewModel.studentFeesUIState.studentFees.payments}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:listitem="@layout/item_payment" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            showIfTrue="@{viewModel.studentFeesUIState.failure || viewModel.studentFeesUIState.internetUnAvailable}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/no_internet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no_internet" />
+
+            <TextView
+                showIfTrue="@{viewModel.studentFeesUIState.internetUnAvailable}"
+                android:id="@+id/title_no_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/no_internet_connection"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                showIfTrue="@{viewModel.studentFeesUIState.failure}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/server_connection_lost"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/error_secondary_title"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="128dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:onClick="@{() -> viewModel.getData()}"
+                android:text="@string/reload"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@color/primaryColor" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
