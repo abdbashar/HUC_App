@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.huc_app.ui.bills.billsUIState.PaymentUIState" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_color">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/paymentRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        paymentStatus="@{item.paymentStatus}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:background="#CED4DA" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@{@string/payment_number(Integer.parseInt(item.paymentNumber), Integer.parseInt(item.totalPaymentsNumber))}"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/paymentRadioButton"
+                    app:layout_constraintTop_toBottomOf="@+id/paymentRadioButton"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView"
+                    tools:layout_editor_absoluteX="64dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:alpha=".7"
+                                    android:text="@string/paid"
+                                    android:textSize="12sp"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:id="@+id/final_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:priceWithCurrency="@{item.paid}"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    tools:text="3,000,000 IQD" />
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:alpha=".7"
+                                    android:text="@string/remaining"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:priceWithCurrency="@{item.remain}"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    tools:text="2,500,000" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginTop="8dp"
+                                android:orientation="vertical">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:indeterminate="false"
+                                        android:max="100"
+                                        android:padding="16dp"
+                                        android:progress="@{item.paymentProgress}"
+                                        android:scaleX="1.8"
+                                        android:scaleY="1.8"
+                                        app:indicatorColor="@color/primaryColor"
+                                        app:trackColor="#E7E7EC"
+                                        app:trackCornerRadius="8dp"
+                                        app:trackThickness="3dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textAlignment="center"
+                                        android:textColor="#000000"
+                                        android:textSize="14sp"
+                                        app:stringResourceName="@{`percentage_sign`}"
+                                        app:value="@{String.valueOf(item.paymentProgress)}" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:textAlignment="textEnd"
+                                app:formattedDate="@{item.endDate}" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
