@@ -1,17 +1,10 @@
 package com.example.huc_app.util
 
-import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.Paint
-import android.os.Build
 import android.text.*
-import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StrikethroughSpan
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -21,9 +14,6 @@ import com.example.huc_app.R
 import com.example.huc_app.domain.types.Language
 import com.example.huc_app.domain.types.PaymentStatus
 import com.example.huc_app.ui.base.BaseAdapter
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.shape.CornerFamily
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -179,6 +169,19 @@ fun numberConverterByLanguage(text: String): String {
     }
     return text.replace(Regex("\\d")) { arabicNumbers[it.value.toInt()] }
 }
+
+
+@BindingAdapter("paymentStatus")
+fun setPaymentStatus(imageView: ImageView, paymentStatus: PaymentStatus) {
+    val context = imageView.context
+    val drawableRes = when (paymentStatus) {
+        PaymentStatus.UNPAID -> R.drawable.unchecked_radio_button
+        PaymentStatus.PARTIALLY_PAID -> R.drawable.checked_radio_button
+        PaymentStatus.FULLY_PAID -> R.drawable.circle_check
+    }
+    imageView.setImageDrawable(ContextCompat.getDrawable(context, drawableRes))
+}
+
 
 @BindingAdapter("studentEnrollmentStatus")
 fun setStudentEnrollmentStatus(view: TextView, isEnrolled: Boolean) {
