@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.huc_app.R
 import com.example.huc_app.databinding.FragmentBillsBinding
 import com.example.huc_app.ui.base.BaseFragment
+import com.example.huc_app.util.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -32,11 +34,20 @@ class BillsFragment : BaseFragment<FragmentBillsBinding>() {
         requireActivity().window.statusBarColor = Color.WHITE
         setAdapter()
         observeUIState()
+        observeEvents()
     }
 
     override fun onDestroyView() {
         requireActivity().window.statusBarColor = originalStatusBarColor
         super.onDestroyView()
+    }
+
+    private fun observeEvents() {
+        viewModel.isArrowBackClicked.observeEvent(viewLifecycleOwner) {
+            if (it) {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun observeUIState() {
