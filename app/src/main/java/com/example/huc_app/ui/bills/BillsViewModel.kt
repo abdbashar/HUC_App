@@ -119,4 +119,18 @@ class BillsViewModel @Inject constructor(
 
         return progressPercentage.toInt()
     }
+
+    fun getData(){
+        viewModelScope.launch {
+            _studentFeesUIState.update {
+                it.copy(
+                    isLoading = false,
+                    isSuccess = false,
+                    isFailure = false,
+                    isInternetUnAvailable = false,
+                )
+            }
+        }
+        getStudentFees()
+    }
 }
