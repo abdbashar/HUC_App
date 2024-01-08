@@ -1,12 +1,15 @@
 package com.example.huc_app.ui.bills
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.huc_app.domain.types.Language
 import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetPaymentStatusUseCase
 import com.example.huc_app.domain.useCases.GetStudentFeesUseCase
 import com.example.huc_app.ui.bills.billsUIState.GetStudentFeesUIState
-import com.example.huc_app.util.Event
+import com.example.huc_app.util.SettingsService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,9 +28,18 @@ class BillsViewModel @Inject constructor(
     private val _studentFeesUIState = MutableStateFlow(GetStudentFeesUIState())
     val studentFeesUIState: StateFlow<GetStudentFeesUIState> get() = _studentFeesUIState
 
+    private val _currentLanguage = MutableLiveData<Language>()
+    val currentLanguage: LiveData<Language> get() = _currentLanguage
+
+    private val settingsService = SettingsService
 
     init {
+        getCurrentAppLanguage()
         getStudentFees()
+    }
+
+    private fun getCurrentAppLanguage() {
+        _currentLanguage.postValue(settingsService.getCurrentLanguage())
     }
 
     private fun getStudentFees() {
