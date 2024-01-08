@@ -24,6 +24,7 @@ class BillsViewModel @Inject constructor(
     private val _studentFeesUIState = MutableStateFlow(GetStudentFeesUIState())
     val studentFeesUIState: StateFlow<GetStudentFeesUIState> get() = _studentFeesUIState
 
+
     init {
         getStudentFees()
     }
@@ -79,5 +80,10 @@ class BillsViewModel @Inject constructor(
                 _studentFeesUIState.update { it.copy(isLoading = false, isInternetUnAvailable = true) }
             }
         }
+    }
+
+
+    private fun getTotalFeesPaymentProgressPercentage(totalPaid: Int, feesAfterDiscount: Int): Int {
+        return (totalPaid.toDouble() / feesAfterDiscount * 100).toInt()
     }
 }
