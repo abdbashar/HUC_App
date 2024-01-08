@@ -6,6 +6,7 @@ import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetPaymentStatusUseCase
 import com.example.huc_app.domain.useCases.GetStudentFeesUseCase
 import com.example.huc_app.ui.bills.billsUIState.GetStudentFeesUIState
+import com.example.huc_app.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -82,8 +83,18 @@ class BillsViewModel @Inject constructor(
         }
     }
 
-
     private fun getTotalFeesPaymentProgressPercentage(totalPaid: Int, feesAfterDiscount: Int): Int {
         return (totalPaid.toDouble() / feesAfterDiscount * 100).toInt()
+    }
+
+    private fun getFeesPaymentProgressPercentage(paid: Int, remain: Int): Int {
+        val totalAmount = paid + remain
+        val progressPercentage = if (totalAmount != 0) {
+            (paid.toFloat() / totalAmount) * 100
+        } else {
+            0f
+        }
+
+        return progressPercentage.toInt()
     }
 }
