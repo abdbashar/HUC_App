@@ -9,6 +9,7 @@ import com.example.huc_app.domain.useCases.CheckConnectivityUseCase
 import com.example.huc_app.domain.useCases.GetPaymentStatusUseCase
 import com.example.huc_app.domain.useCases.GetStudentFeesUseCase
 import com.example.huc_app.ui.bills.billsUIState.GetStudentFeesUIState
+import com.example.huc_app.util.Event
 import com.example.huc_app.util.SettingsService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +28,9 @@ class BillsViewModel @Inject constructor(
 
     private val _studentFeesUIState = MutableStateFlow(GetStudentFeesUIState())
     val studentFeesUIState: StateFlow<GetStudentFeesUIState> get() = _studentFeesUIState
+
+    private val _isArrowBackClicked = MutableLiveData(Event(false))
+    val isArrowBackClicked = _isArrowBackClicked
 
     private val _currentLanguage = MutableLiveData<Language>()
     val currentLanguage: LiveData<Language> get() = _currentLanguage
@@ -94,6 +98,12 @@ class BillsViewModel @Inject constructor(
             }
         }
     }
+
+
+    fun onNavigateBackClick() {
+        _isArrowBackClicked.postValue(Event(true))
+    }
+
 
     private fun getTotalFeesPaymentProgressPercentage(totalPaid: Int, feesAfterDiscount: Int): Int {
         return (totalPaid.toDouble() / feesAfterDiscount * 100).toInt()
