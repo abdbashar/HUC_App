@@ -25,6 +25,10 @@ class UserRepositoryImp @Inject constructor(
         return hucApiService.getLatestNews()
     }
 
+    override suspend fun getStudentFees(): FeesDTO {
+        return hucApiService.getStudentFees()
+    }
+
     override suspend fun getStudentDocs(): StudentDocumentsDTO {
         return hucApiService.getStudentDocs()
     }
