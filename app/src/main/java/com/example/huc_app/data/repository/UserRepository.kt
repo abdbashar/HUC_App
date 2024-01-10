@@ -12,6 +12,8 @@ interface UserRepository {
 
     suspend fun getLatestNews(): UniversityNewsDTO
 
+    suspend fun getStudentFees(): FeesDTO
+
     suspend fun getStudentDocs(): StudentDocumentsDTO
 
     suspend fun getStudentIDStatus(): StudentIDStatusDTO
