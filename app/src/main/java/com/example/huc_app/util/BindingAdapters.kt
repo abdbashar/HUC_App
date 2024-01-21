@@ -182,6 +182,27 @@ fun setPaymentStatus(imageView: ImageView, paymentStatus: PaymentStatus) {
     imageView.setImageDrawable(ContextCompat.getDrawable(context, drawableRes))
 }
 
+@BindingAdapter("value", "stringResourceName", requireAll = false)
+fun setTextViewValue(view: TextView, value: String?, stringResourceName: String?) {
+    value?.let { value ->
+        stringResourceName?.let { resourceName ->
+            val resourceId =
+                view.resources.getIdentifier(resourceName, "string", view.context.packageName)
+            val formatString = view.resources.getString(resourceId)
+            val formattedValue = numberConverterByLanguage(value)
+            val formattedString = if (formatString.contains("%") && formatString.length > 1) {
+                try {
+                    String.format(formatString, formattedValue)
+                } catch (e: Exception) {
+                    formatString.replace("%1\$d", formattedValue)
+                }
+            } else {
+                formattedValue + formatString
+            }
+            view.text = formattedString
+        }
+    }
+}
 
 @BindingAdapter("studentEnrollmentStatus")
 fun setStudentEnrollmentStatus(view: TextView, isEnrolled: Boolean) {
