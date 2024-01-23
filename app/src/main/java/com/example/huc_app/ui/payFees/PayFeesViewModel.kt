@@ -38,4 +38,8 @@ class PayFeesViewModel @Inject constructor(
             }
         }
     }
+
+    fun onNavigateBackClick() {
+        _isArrowBackClicked.postValue(Event(true))
+    }
 }
