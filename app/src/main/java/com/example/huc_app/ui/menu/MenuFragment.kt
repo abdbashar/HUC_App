@@ -25,13 +25,14 @@ class MenuFragment : BaseFragment<FragmentMenuBindingImpl>() {
     private fun observeEvents() {
         viewModel.menuEvent.observeEvent(viewLifecycleOwner){ event ->
             when (event) {
-                 MenuEvent.PersonalInfoClicked -> navigateToScreenById(R.id.action_menuFragment_to_personalInfoFragment)
+                MenuEvent.PersonalInfoClicked -> navigateToScreenById(R.id.action_menuFragment_to_personalInfoFragment)
                 MenuEvent.SecondarySchoolInfoClicked -> navigateToScreenById(R.id.action_menuFragment_to_secondarySchoolInfoFragment)
                 MenuEvent.UniversityInfoClicked -> navigateToScreenById(R.id.action_menuFragment_to_universityInfoFragment)
                 MenuEvent.StudentDocsClicked -> navigateToScreenById(R.id.action_menuFragment_to_studentDocsFragment)
                 MenuEvent.StudentIDClicked -> navigateToScreenById(R.id.action_menuFragment_to_studentIDFragment)
                 MenuEvent.SubmitRequestsClicked -> navigateToScreenById(R.id.action_menuFragment_to_requestsFragment)
                 MenuEvent.BillsClicked -> navigateToScreenById(R.id.action_menuFragment_to_billsFragment)
+                MenuEvent.PayFeesClicked -> navigateToScreenById(R.id.action_menuFragment_to_payFeesFragment)
             }
         }
     }
