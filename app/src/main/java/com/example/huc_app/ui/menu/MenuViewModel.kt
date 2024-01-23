@@ -91,4 +91,8 @@ class MenuViewModel @Inject constructor(
     fun onBillsClicked() {
         _menuEvent.value = MenuEvent.BillsClicked.toEvent()
     }
+
+    fun onPayFeesClicked() {
+        _menuEvent.value = MenuEvent.PayFeesClicked.toEvent()
+    }
 }
