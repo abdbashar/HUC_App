@@ -203,6 +203,18 @@ fun setTextViewValue(view: TextView, value: String?, stringResourceName: String?
         }
     }
 }
+@BindingAdapter("textWithThreeDots")
+fun setTextWithThreeDots(view: TextView, text: String) {
+    val maxLength = 25
+    val readMoreText = view.context.getString(R.string.three_dots)
+
+    if (text.length > maxLength) {
+        val shortenedText = text.substring(0, maxLength) + readMoreText
+        view.text = shortenedText
+    } else {
+        view.text = text
+    }
+}
 
 @BindingAdapter("studentEnrollmentStatus")
 fun setStudentEnrollmentStatus(view: TextView, isEnrolled: Boolean) {
